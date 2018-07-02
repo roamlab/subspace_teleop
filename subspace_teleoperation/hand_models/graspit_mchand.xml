@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<!-- Model of the McHand hand -->
+<!-- Order of joints: (Palm, Opposing Finger MPJ, Opposing Finger PIJ, Opposing Finger DIJ, F2 ad, F2 MPJ, F2 PIJ, F2 DIJ, F1 ad, F1 MPJ, F1 PIJ, F1 DIJ) -->
+
+<hand Name="graspit_mchand" Dimensions="12">
+	<Spread_Dimension>
+		<DimVals d4="-0.707106" d8="0.707106"></DimVals>
+	</Spread_Dimension>
+
+	<Size_Dimension>
+		<DimVals d0="0.44721" d1="0.44721" d5="0.44721" d6="0.44721" d9="0.44721"></DimVals>
+	</Size_Dimension>
+
+	<Curl_Dimension>
+		<DimVals d2="0.4082" d3="0.4082" d6="0.4082" d7="0.4082" d10="0.4082" d11="0.4082"></DimVals>
+	</Curl_Dimension>
+
+	<Origin>
+		<DimVals  d0="0.391514" d1="1.22173" d2="-0.257802" d3="-0.352017" d4="-0.349066" d5="1.22173" d6="-0.33491" d7="-0.362381" d8="0.349066" d9="1.22173" d10="-0.30115" d11="-0.362381"/>
+	</Origin>
+
+	<Joint_Maxima>
+		<DimVals  d0="0.698132" d1="1.22173" d2="1.22173" d3="1.22173" d4="0" d5="1.22173" d6="1.22173" d7="1.22173" d8="0.349066" d9="1.22173" d10="1.22173" d11="1.22173"/> 
+	</Joint_Maxima>
+
+	<Joint_Minima>
+		<DimVals  d0="0" d1="-0.523599" d2="-0.523599" d3="-0.523599" d4="-0.349066" d5="-0.523599" d6="-0.523599" d7="-0.523599" d8="0" d9="-0.523599" d10="-0.523599" d11="-0.523599" />
+	</Joint_Minima>
+
+	<Joint_Names>
+		<DimVals  d0="palm" d1="fixed_mpj" d2="fixed_pij" d3="fixed_dij" d4="f2_add" d5="f2_mpj" d6="f2_pij" d7="f2_dij" d8="f1_add" d9="f1_mpj" d10="f1_pij" d11="f1_dij" />
+	</Joint_Names>
+</hand>
+
+
+<!-- If the hand does not use a dimension, leave JointsInvolved dimension blank:
+		<JointsInvolved></JointsInvolved>
+
+-->
+
+<!-- If the hand uses a grasping dimension and you do not wish any of the dimensions to be weighted more than the others,
+then count the number of joints involved (JOINTS_INVOLVED) and the DimVal for all joints will = sqrt(1/JOINTS_INVOLVED) -->

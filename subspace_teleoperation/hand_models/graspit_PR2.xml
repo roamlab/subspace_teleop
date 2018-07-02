@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<!-- Model of the PR2 hand -->
+<!-- Order of joints: (both finger MPJ) -->
+
+<hand Name="graspit_velo" Dimensions="4">
+	<Spread_Dimension>
+		<DimVals></DimVals>
+	</Spread_Dimension>
+
+	<Size_Dimension>
+		<DimVals d0="-1"></DimVals>
+	</Size_Dimension>
+
+	<Curl_Dimension>
+		<DimVals ></DimVals>
+	</Curl_Dimension>
+
+	<Origin>
+		<DimVals  d0="0" />
+	</Origin>
+
+	<Joint_Maxima>
+		<DimVals  d0="0.523599" /> 
+	</Joint_Maxima>
+
+	<Joint_Minima>
+		<DimVals  d0="0" />
+	</Joint_Minima>
+
+	<Joint_Names>
+		<DimVals  d0="aperature" />
+	</Joint_Names>
+
+</hand>
+
+
+<!-- If the hand does not use a dimension, leave JointsInvolved dimension blank:
+		<JointsInvolved></JointsInvolved>
+
+-->
+
+<!-- If the hand uses a grasping dimension and you do not wish any of the dimensions to be weighted more than the others,
+then count the number of joints involved (JOINTS_INVOLVED) and the DimVal for all joints will = sqrt(1/JOINTS_INVOLVED) -->

@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<!-- Model of the DLR hand -->
+<!-- Order of joints: (Thumb MPJ, Thumb Ad, Thumb PIJ, Index MPJ, Index Ad, Index PIJ, Middle MPJ, Middle Ad, Middle PIJ, Pinkie MPJ, Pinkie Ad, Pinkie PIJ) -->
+
+<hand Name="graspit_DLR" Dimensions="12">
+	<Spread_Dimension>
+		<DimVals d4="0.57735" d10="-0.57735"></DimVals>
+	</Spread_Dimension>
+
+	<Size_Dimension>
+		<DimVals d0="0.44721" d1="0.44721" d3="0.44721" d6="0.44721" d9="0.44721"></DimVals>
+	</Size_Dimension>
+
+	<Curl_Dimension>
+		<DimVals d2=".5" d5=".5" d8=".5" d11=".5"></DimVals>
+	</Curl_Dimension>
+
+	<Origin>
+		<DimVals  d0="1" d1="0" d2="0" d3="1.22173" d4="0.174533" d5="0" d6="1.22173" d7="0" d8="0" d9="1.22173" d10="-0.174533" d11="0"/>
+	</Origin>
+
+	<Joint_Maxima>
+		<DimVals  d0="1.22173" d1="0.523599" d2="1.742313" d3="1.22173" d4="0.174533" d5="1.742313" d6="1.22173" d7="0.523599" d8="1.742313" d9="1.22173" d10="0.523599" d11="1.742313"/> 
+	</Joint_Maxima>
+
+	<Joint_Minima>
+		<DimVals  d0="-0.271207" d1="-0.523599" d2="0" d3="0" d4="-0.523599" d5="0" d6="0" d7="-0.523599" d8="0" d9="0" d10="-0.174533" d11="0" />
+	</Joint_Minima>
+
+	<Joint_Names>
+		<DimVals  d0="thumb_prox" d1="thumb_ad" d2="thumb_dist" d3="index_prox" d4="index_ad" d5="index_dist" d6="middle_prox" d7="middle_ad" d8="middle_dist" d9="pinkie_prox" d10="pinkie_ad" d11="pinkie_dist"/>
+	</Joint_Names>
+</hand>
+
+
+<!-- If the hand does not use a dimension, leave JointsInvolved dimension blank:
+		<JointsInvolved></JointsInvolved>
+
+-->
+
+<!-- If the hand uses a grasping dimension and you do not wish any of the dimensions to be weighted more than the others,
+then count the number of joints involved (JOINTS_INVOLVED) and the DimVal for all joints will = sqrt(1/JOINTS_INVOLVED) -->

@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<!-- Model of the Karlsruhe hand -->
+<!-- Order of joints: (Thumb Ad, Thumb MPJ, Index MPJ, Index PIJ, Middle MPJ, Middle PIJ, Ring MPJ, Pinkie MPJ) -->
+
+<hand Name="graspit_karlsruhe" Dimensions="8">
+	<Spread_Dimension>
+		<DimVals d0="1"></DimVals>
+	</Spread_Dimension>
+
+	<Size_Dimension>
+		<DimVals  d1="0.57735" d2="0.57735" d4="0.57735" d6="0.57735" d7="0.57735"></DimVals>
+	</Size_Dimension>
+
+	<Curl_Dimension>
+		<DimVals d3="0.7071" d5="0.7071"  ></DimVals>
+	</Curl_Dimension>
+
+	<Origin>
+		<DimVals  d0="1.570796" d1="0.594209" d2="1.570796" d3="0" d4="1.570796" d5="0.006629" d6="1.570796" d7="1.570796"/>
+	</Origin>
+
+	<Joint_Maxima>
+		<DimVals  d0="1.570796" d1="1.570796" d2="1.570796" d3="1.570796" d4="1.570796" d5="1.570796" d6="1.570796" d7="1.570796"/> 
+	</Joint_Maxima>
+
+	<Joint_Minima>
+		<DimVals  d0="0" d1="0" d2="0" d3="0" d4="0" d5="0" d6="0" d7="0" />
+	</Joint_Minima>
+
+	<Joint_Names>
+		<DimVals  d0="thumb_add" d1="thumb_prox" d2="index_prox" d3="index_dist" d4="middle_prox" d5="middle_dist" d6="ring_prox" d7="pinkie_prox" />
+	</Joint_Names>
+
+</hand>
+
+<!-- If the hand does not use a dimension, set range at 0 and leave JointsInvolved dimension blank:
+		<Range>0</Range>
+		<JointsInvolved></JointsInvolved>
+
+-->
+
+<!-- If the hand uses a grasping dimension and you do not wish any of the dimensions to be weighted more than the others,
+then count the number of joints involved (JOINTS_INVOLVED) and the DimVal for all joints will = sqrt(1/JOINTS_INVOLVED) -->

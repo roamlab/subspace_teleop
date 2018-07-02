@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<!-- Model of the RobotIQ hand -->
+<!-- Order of joints: (Fixed MPJ, Fixed PIJ, Fixed DIJ, F1 Ad, F1 MPJ, F1 PIJ, F1 DIJ, F2 Ad, F2 MPJ, F2 PIJ, F2 DIJ) -->
+
+<hand Name="graspit_robotIQ" Dimensions="11">
+	<Spread_Dimension>
+		<DimVals d3="-0.707106" d7="0.707106" ></DimVals>
+	</Spread_Dimension>
+
+	<Size_Dimension>
+		<DimVals d0="0.57735" d4="0.57735" d8="0.57735" ></DimVals>
+	</Size_Dimension>
+
+	<Curl_Dimension>
+		<DimVals d1="0.4082" d2="0.4082" d5="0.4082" d6="0.4082" d9="0.4082" d10="0.4082" ></DimVals>
+	</Curl_Dimension>
+
+	<Origin>
+		<DimVals d0="0.846921" d1="0" d2="-0.610809" d3="0" d4="0.823068" d5="0" d6="-0.659359" d7="0" d8="0.823068" d9="0" d10="-0.659359"/>
+	</Origin>
+
+	<Joint_Maxima>
+		<DimVals  d0="1.127657" d1="1.570796" d2="0.757298" d3="0.296706" d4="1.127657" d5="1.570796" d6="0.757298" d7="0.296706" d8="1.127657" d9="1.570796" d10="0.757298" /> 
+	</Joint_Maxima>
+
+	<Joint_Minima>
+		<DimVals  d0="0" d1="0" d2="-0.953124" d3="-0.296706" d4="0" d5="0" d6="-0.953124" d7="-0.296706" d8="0" d9="0" d10="-0.953124" />
+	</Joint_Minima>
+
+	<Joint_Names>
+		<DimVals  d0="fixed_mpj" d1="fixed_pij" d2="fixed_dij" d3="F1_add" d4="F1_mpj" d5="F1_pij" d6="F1_dij" d7="F2_add" d8="F2_mpj" d9="F2_pij" d10="F2_dij"/>
+	</Joint_Names>
+</hand>
+
+
+<!-- If the hand does not use a dimension, leave JointsInvolved dimension blank:
+		<JointsInvolved></JointsInvolved>
+
+-->
+
+<!-- If the hand uses a grasping dimension and you do not wish any of the dimensions to be weighted more than the others,
+then count the number of joints involved (JOINTS_INVOLVED) and the DimVal for all joints will = sqrt(1/JOINTS_INVOLVED) -->

@@ -1,0 +1,196 @@
+###########################################
+TO CREATE AN XML FILE FOR A NEW ROBOT HAND:
+###########################################
+
+The xml file should start with a hand tag with Name and Dimension
+descriptions which define the robot name and number of joints (N).
+
+The xml file will also include tags called Joint_Names, Joint_Minima,
+Joint_Maxima and Origin. The joint names, joint maxima, joint minima 
+and origin tags should all have the same number of attributes for 
+DimVals as the number of Dimensions you defined above.
+
+The Joint_Names tag will have the DimVals (d0,d1,...,dN) set to 
+strings which are the joint names. For the slave hand, these joint 
+names will be used in the published JointState command message.
+
+The Joint_Maxima and Joint_Minima tags should have the DimVals 
+(d0,d1,...,dN) set to the maximum and minimum value that each joint 
+(0,1,...N) can move to.
+
+The Origin tag will have the DimVals (d0,d1,...,dN) set to the value
+of the neutral origin pose. An illustration and description of the 
+neutral origin pose used in the example hand_models can be found in 
+Section III.A.1 of "Intuitive Hand Teleoperation by Novice Operators 
+Using a Continuous Teleoperation Subspace" (Meeker, et al. 2018).
+
+Depending on your robot, the values for the joint maxima, joint 
+minima and the origin will either be in degrees or radians. If the 
+DimVals in the XML file of the slave hand are in degrees, the 
+command published by the subspace mapping will also be in degrees. 
+The same goes for radians.
+
+The XML file will also have Spread_Dimension, Size_Dimension, and 
+Curl_Dimension tags.
+
+To fill in the DimVals for the spread, size and curl dimension tags, 
+follow the steps found in Section III.A.2 of "Intuitive Hand 
+Teleoperation by Novice Operators Using a Continuous Teleoperation 
+Subspace" (Meeker, et al. 2018) to find the values of psi which make 
+up the projection matrix A. The DimVals in the Spread_Dimension tag 
+will have as many attributes as there are non-zero values in psi_alpha. 
+If psi_alpha has non-zero values at indices 0, 4, and 7, then the 
+Spread_Dimension tag will have DimVals with attributes called d0, d4 
+and d7. The rules for the Size and Curl Dimensions are the same.
+
+Some of the example models also have a range tag within the spread, 
+size and curl dimensions, but this is not loaded in this iteration 
+of the load_file functions. It can be used to preset delta, but we 
+have a function to calculate delta based on min/max joint angles, 
+so the range tag is not necessary.
+
+See below for illustrative examples.  The meshes/images of these hands
+can be found in Graspit!.
+
+
+EXAMPLE 1: THE SCHUNK SDH HAND
+Order of joints: adduction, f1_prox, f1_dist, fixed_prox, fixed_dist, f2_prox, f2_dist
+
+For this hand, joints which affect the size of the object we can 
+grasp are f1 prox, fixed prox, f2 prox. Joints which affect the 
+curl of the fingers are f1 dist, fixed dist, f2 dist. The joint 
+which affects the spread/adduction of the fingers is the adduction 
+joint.
+
+So we create the un-normalized versions of psi:
+	psi_alpha = [1, 0, 0, 0, 0, 0, 0]  --> spread
+	psi_sigma = [0, 1, 0 1, 0, 1, 0]  --> size
+	psi_epsilon = [0, 0, 1, 0, 1, 0, 1]  --> curl
+
+We normalize the psis:
+	psi_alpha = [1, 0, 0, 0, 0, 0, 0]  --> spread
+	psi_sigma = [0, 0.577, 0 0.577, 0, 0.577, 0]  --> size
+	psi_epsilon = [0, 0, 0.577, 0, 0.577, 0, 0.577]  --> curl
+
+We convert these into the XML tags:
+	<Spread_Dimension>
+		<DimVals d0="-1" ></DimVals>
+	</Spread_Dimension>
+
+	<Size_Dimension>
+		<DimVals d1="0.57735" d3="0.57735" d5="0.57735" ></DimVals>
+	</Size_Dimension>
+
+	<Curl_Dimension>
+		<DimVals d2="0.57735" d4="0.57735" d6="0.57735" ></DimVals>
+	</Curl_Dimension>
+
+You will note that the spread dimension is negated. Occasionally 
+because of the direction in which the fingers open or are spread, 
+values in the psis will need to be negated. This is usually only 
+necessary for the spread dimension. If you find your robot fingers 
+spreading in the wrong direction (abducting when they should be 
+adducting), try negating one or more values in the spread dimension.
+
+
+
+EXAMPLE 2: THE VELO GRIPPER
+Order of joints: F1 proximal,  F1 distal, F2 proximal, F2 distal
+
+For this hand, joints which affect the size of the object we can 
+grasp are F1 proximal and F2 proximal (indices 0, 2).  Joints which 
+affect how curled the fingers are are F1 distal and F2 distal 
+(indices 1, 3). There are no joints which will spread/adduct the 
+fingers.
+
+So we create the un-normalized versions of psi:
+	psi_alpha = [0, 0, 0, 0]  --> spread
+	psi_sigma = [1, 0, 1, 0]  --> size
+	psi_epsilon = [0, 1, 0, 1]  --> curl
+
+We normalize the psis:
+	psi_alpha = [0, 0, 0, 0]  --> spread
+	psi_sigma = [0.707106, 0, 0.707106, 0]  --> size
+	psi_epsilon = [0, 0.707106, 0, 0.707106]  --> curl
+
+We convert these into the XML tags:
+	<Spread_Dimension>
+		<DimVals></DimVals>
+	</Spread_Dimension>
+
+	<Size_Dimension>
+		<DimVals d0="0.707106" d2="0.707106"></DimVals>
+	</Size_Dimension>
+
+	<Curl_Dimension>
+		<DimVals d1="0.707106" d3="0.707106" ></DimVals>
+	</Curl_Dimension>
+
+Because the psi for the spread dimension has no non-zero values, this
+tag can be left empty. The non-zero values for psi_sigma and psi_epsilon
+are added to the DimVals for their respective dimensions where the 
+attribute is named "d"+"non-zero index".
+
+
+################################################################
+HOW XML FILES ARE TRANSLATED TO PROJECTION MATRICES DESCRIBED IN
+"Intuitive Hand Teleoperation by Novice Operators Using a 
+Continuous Teleoperation Subspace" (Meeker, et al. 2018):
+################################################################
+
+load_from_file.py performs all operations related to reading in 
+the hand information from the xml files. Below is a brief summary 
+on how the information is read in and converted to matrices.
+
+The xml file which is read in is found using the model_dir and the 
+hand_name given in the launch file. Using xml.etree.ElementTree, 
+the xml file is parsed. If a tag is missing in the xml file, the
+function will return None for that tag. 
+
+The hand name and dimensions are read in as a string and int variable,
+respectively. The origin values, joint minima and joint maxima are 
+read in as float arrays. For example, from the schunk.xml file in the 
+hand_models folder:
+
+XML:
+<Origin>
+	<DimVals d0="0" d1="5" d2="0" d3="5" d4="0" d5="5" d6="0"/>
+</Origin>
+
+Loaded into python as:
+origin = [0, 5, 0, 5, 0, 5, 0]
+
+
+The projection matrix A is initialized as an array of zeros with shape
+of [num_dof, 3]. Then the spread, size and curl dimension tags are used
+to fill in the non-zero values of the matrix. For example, from the 
+schunk.xml file in the hand_models folder:
+
+XML:
+<Spread_Dimension>
+	<DimVals d0="-1"/>
+</Spread_Dimension>
+<Size_Dimension>
+	<DimVals d1="0.57735" d3="0.57735" d5="0.57735"/>
+</Size_Dimension>
+<Curl_Dimension>
+	<DimVals d2="0.57735" d4="0.57735" d6="0.57735"/>
+</Curl_Dimension>
+
+Loaded into python as:
+A = [[-1, 0,     0    ],
+     [0,  0.577, 0    ], 
+     [0,  0,     0.577],
+     [0,  0.577, 0    ],
+     [0,  0,     0.577],
+     [0,  0.577, 0    ],
+     [0,  0,     0.577]]
+
+The dimension tag determines which column the non-zero numbers are placed
+into (spread = column 0, size = column 1, curl = column 2). The DimVals
+determine which row the non-zero numbers are assigned. A value assigned 
+to d0 will be placed in row 0, etc.
+
+
+
+

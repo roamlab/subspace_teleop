@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<!-- Model of the Kanguera hand -->
+<!-- Order of joints: (Thumb Ad, Thumb MPJ, Thumb PIJ, Index Ad, Index MPJ, Index PIJ, Middle Ad, Middle MPJ, Middle PIJ, Ring Ad, Ring MPJ, Ring PIJ, Pinkie Ad, Pinkie MPJ, Pinkie PIJ) -->
+
+<hand Name="graspit_kanguera" Dimensions="15">
+	<Spread_Dimension>
+		<DimVals d3=".5" d6=".5" d9=".5" d12=".5" ></DimVals>
+	</Spread_Dimension>
+
+	<Size_Dimension>
+		<DimVals d0="0.4082" d1="0.4082" d4="0.4082" d7="0.4082" d10="0.4082" d13="0.4082" ></DimVals>
+	</Size_Dimension>
+
+	<Curl_Dimension>
+		<DimVals d2="0.4082" d3="0.4082" d5="0.4082" d8="0.4082" d11="0.4082" d14="0.4082" ></DimVals>
+	</Curl_Dimension>
+
+	<Origin>
+		<DimVals  d0="0" d1="1.570796" d2="0" d3="0" d4="1.570796" d5="0" d6="0" d7="1.570796" d8="0" d9="0" d10="1.570796" d11="0" d12="0" d13="1.570796" d14="0" />
+	</Origin>
+
+	<Joint_Maxima>
+		<DimVals  d0="0.174533" d1="1.570796" d2="1.570011" d3="0.174533" d4="1.570796" d5="1.570011" d6="0.174533" d7="1.570796" d8="1.570011" d9="0.174533" d10="1.570796" d11="1.570011" d12="0.174533" d13="1.570796" d14="1.570011" /> 
+	</Joint_Maxima>
+
+	<Joint_Minima>
+		<DimVals  d0="-0.174533" d1="0" d2="0" d3="-0.174533" d4="0" d5="0" d6="-0.174533" d7="0" d8="0" d9="-0.174533" d10="0" d11="0" d12="-0.174533" d13="0" d14="0" />
+	</Joint_Minima>
+
+	<Joint_Names>
+		<DimVals  d0="thumb_add" d1="thumb_prox" d2="thumb_dist" d3="index_add" d4="index_prox" d5="index_dist" d6="middle_add" d7="middle_prox" d8="middle_dist" d9="ring_add" d10="ring_prox" d11="ring_dist" d12="pinkie_add" d13="pinkie_prox" d14="pinkie_dist" />
+	</Joint_Names>
+</hand>
+
+<!-- If the hand does not use a dimension, leave JointsInvolved dimension blank:
+		<JointsInvolved></JointsInvolved>
+
+-->
+
+<!-- If the hand uses a grasping dimension and you do not wish any of the dimensions to be weighted more than the others,
+then count the number of joints involved (JOINTS_INVOLVED) and the DimVal for all joints will = sqrt(1/JOINTS_INVOLVED) -->

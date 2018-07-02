@@ -1,0 +1,10 @@
+<launch>
+  <!-- Arguments to be changed by the user-->
+  <arg name="master" default='human'/>
+  <arg name="slave" default='schunk'/>
+  <arg name="model_dir" default='$(find subspace_teleoperation)/hand_models'/>
+
+  <!-- Teleoperate using subspace -->
+  <node pkg="subspace_teleoperation" type="subspace_mapping_dataglove-control.py" name="teleoperator" output="screen" args="_master:=$(arg master) _slave:=$(arg slave) _model_dir:=$(arg model_dir)" />
+
+</launch>

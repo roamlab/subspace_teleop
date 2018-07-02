@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<!-- Model of the Schunk hand -->
+<!-- Order of joints: (adduction, f1_prox, f1_dist, fixed_prox, fixed_dist, f2_prox, f2_dist) -->
+
+<hand Name="schunk" Dimensions="7">
+	<Spread_Dimension>
+		<Range>-1</Range>
+		<DimVals d0="-1" ></DimVals>
+	</Spread_Dimension>
+
+	<Size_Dimension>
+		<Range>3.05</Range>
+		<DimVals d1="0.57735" d3="0.57735" d5="0.57735" ></DimVals>
+	</Size_Dimension>
+
+	<Curl_Dimension>
+		<Range>2.8</Range>
+		<DimVals d2="0.57735" d4="0.57735" d6="0.57735" ></DimVals>
+	</Curl_Dimension>
+
+	<Origin>
+		<DimVals  d0="0" d1="5" d2="0" d3="5" d4="0" d5="5" d6="0"/>
+	</Origin>
+
+	<Joint_Maxima>
+		<DimVals  d0="90" d1="10" d2="90" d3="10" d4="90" d5="10" d6="90" /> 
+	</Joint_Maxima>
+
+	<Joint_Minima>
+		<DimVals  d0="0" d1="-90" d2="0" d3="-90" d4="0" d5="-90" d6="0" />
+	</Joint_Minima>
+
+	<Joint_Names>
+		<DimVals  d0="adduction" d1="f1_prox" d2="f1_dist" d3="fixed_prox" d4="fixed_dist" d5="f2_prox" d6="f2_dist" />
+	</Joint_Names>
+
+</hand>
+
+
+<!-- If the hand does not use a dimension, set range at 0 and leave JointsInvolved dimension blank:
+		<Range>0</Range>
+		<JointsInvolved></JointsInvolved>
+
+-->
+
+<!-- If the hand uses a grasping dimension and you do not wish any of the dimensions to be weighted more than the others,
+then count the number of joints involved (JOINTS_INVOLVED) and the DimVal for all joints will = sqrt(1/JOINTS_INVOLVED) -->

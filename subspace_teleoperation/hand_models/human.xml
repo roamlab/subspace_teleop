@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<!-- Model of the Human Hand (Decoupled eigengrasps with even weights) -->
+<!-- Order of joints: (thumb rotate, thumb mpj, thumb ij, thumb ab, index mpj, index pij, index dij, middle mpj, middle pij, middle dij, middle ab, ring mpj, ring pij, ring dij, ring ab, pinkie mpj, pinkie pij, piinkie dij, pinkie ab, palm arch, wrist pitch, wrist yaw) -->
+
+<hand Name="human" Dimensions="22">
+	<Spread_Dimension>
+		<DimVals d0="0.44721" d3="0.44721" d10="0.44721" d14="0.44721" d18="0.44721"></DimVals>
+	</Spread_Dimension>
+
+	<Size_Dimension>
+		<DimVals d1="0.4082" d4="0.4082" d7="0.4082" d11="0.4082" d15="0.4082" d19="0.4082"></DimVals>
+	</Size_Dimension>
+
+	<Curl_Dimension>
+		<DimVals d2="0.33333" d5="0.33333" d6="0.33333" d8="0.33333" d9="0.33333" d12="0.33333" d13="0.33333" d16="0.33333" d17="0.33333"></DimVals>
+	</Curl_Dimension>
+
+	<Origin>
+		<DimVals  d0="0.5275590419769287" d1="0.4606299102306366" d2="0.17716535925865173" d3="0.23228345811367035" d4="0.625984251499176" d5="0.4094488322734833" d6="0.29133859276771545" d7="0.665354311466217" d8="0.33464565873146057" d9="0.12598425149917603" d10="0.586614191532135" d11="0.5984252095222473" d12="0.28740158677101135" d13="0.19685038924217224" d14="0.6299212574958801" d15="0.5905511975288391" d16="0.26771652698516846" d17="0.31889763474464417" d18="0.5118110179901123" d19="0.4763779640197754" d20="0" d21="0"/>
+	</Origin>
+
+	<Joint_Maxima>
+		<DimVals/> 
+	</Joint_Maxima>
+
+	<Joint_Minima>
+		<DimVals/>
+	</Joint_Minima>
+
+	<Joint_Names>
+		<DimVals  d0="thumb_rotate" d1="thumb_mpj" d2="thumb_ij" d3="thumb_add" d4="index_mpj" d5="index_pij" d6="index_dij" d7="middle_mpj" d8="middle_pij" d9="middle_dij" d10="middle_add" d11="ring_mpj" d12="ring_pij" d13="ring_dij" d14="ring_add" d15="pinkie_mpj" d16="pinkie_pij" d17="pinkie_dij" d18="pinkie_add" d19="palm_arch" d20="wrist_pitch" d21="wrist_yaw"/>
+	</Joint_Names>
+
+</hand>
+
+
+

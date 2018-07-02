@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<!-- Model of the MekaHand hand -->
+<!-- Order of joints: (Thumb Ad, Thumb MPJ, Thumb IJ, Pinkie MPJ, Pinkie PIJ, Pinkie DIJ, Middle MPJ, Middle PIJ, Middle DIJ, Index MPJ, Index PIJ, Index DIJ) -->
+
+<hand Name="graspit_mekahand" Dimensions="12">
+	<Spread_Dimension>
+		<DimVals></DimVals>
+	</Spread_Dimension>
+
+	<Size_Dimension>
+		<DimVals d0="0.44721" d1="0.44721" d3="0.44721" d6="0.44721" d9="0.44721"></DimVals>
+	</Size_Dimension>
+
+	<Curl_Dimension>
+		<DimVals d2="0.37796" d4="0.37796" d5="0.37796" d7="0.37796" d8="0.37796" d10="0.37796" d11="0.37796"></DimVals>
+	</Curl_Dimension>
+
+	<Origin>
+		<DimVals d0="0.936146" d1="0.807083" d2="0" d3="1.413717" d4="0.456692" d5="0" d6="1.413717" d7="0.444392" d8="0" d9="1.413717" d10="0.43513" d11="0"/>
+	</Origin>
+
+	<Joint_Maxima>
+		<DimVals  d0="1.570796" d1="1.435321" d2="1.727876" d3="1.413717" d4="1.727876" d5="1.727876" d6="1.413717" d7="1.727876" d8="1.727876" d9="1.413717" d10="1.727876" d11="1.727876"/> 
+	</Joint_Maxima>
+
+	<Joint_Minima>
+		<DimVals  d0="0" d1="0" d2="0" d3="0" d4="0" d5="0" d6="0" d7="0" d8="0" d9="0" d10="0" d11="0" />
+	</Joint_Minima>
+
+	<Joint_Names>
+		<DimVals  d0="thumb_add" d1="thumb_mpj" d2="thumb_ij" d3="pinkie_mpj" d4="pinkie_pij" d5="pinkie_dij" d6="middle_mpj" d7="middle_pij" d8="middle_dij" d9="index_mpj" d10="index_pij" d11="index_dij" />
+	</Joint_Names>
+
+</hand>
+
+
+<!-- If the hand does not use a dimension, leave JointsInvolved dimension blank:
+		<JointsInvolved></JointsInvolved>
+
+-->
+
+<!-- If the hand uses a grasping dimension and you do not wish any of the dimensions to be weighted more than the others,
+then count the number of joints involved (JOINTS_INVOLVED) and the DimVal for all joints will = sqrt(1/JOINTS_INVOLVED) -->

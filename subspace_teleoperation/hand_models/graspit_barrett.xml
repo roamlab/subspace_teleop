@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+<!-- Model of the Barrett hand -->
+<!-- Order of joints: (F1/F2 ad, F1 MPJ, F2 MPJ, Thumb MPJ
+) -->
+
+<hand Name="graspit_barrett" Dimensions="4">
+	<Spread_Dimension>
+		<DimVals d0="-1"></DimVals>
+	</Spread_Dimension>
+
+	<Size_Dimension>
+		<DimVals d1="0.57735" d2="0.57735" d3="0.57735"></DimVals>
+	</Size_Dimension>
+
+	<Curl_Dimension>
+		<DimVals></DimVals>
+	</Curl_Dimension>
+
+	<Origin>
+		<DimVals  d0="0" d1="1.442018" d2="1.442018" d3="1.442018"/>
+	</Origin>
+
+	<Joint_Maxima>
+		<DimVals  d0="3.141593" d1="2.513274" d2="2.513274" d3="2.406977" /> 
+	</Joint_Maxima>
+
+	<Joint_Minima>
+		<DimVals  d0="0" d1="0" d2="0" d3="0" />
+	</Joint_Minima>
+
+	<Joint_Names>
+		<DimVals  d0="adduction" d1="f1_prox" d2="f2_prox" d3="f_fixed_prox" />
+	</Joint_Names>
+	
+
+</hand>
+
+
+<!-- If the hand does not use a dimension, leave JointsInvolved dimension blank:
+		<JointsInvolved></JointsInvolved>
+
+-->
+
+<!-- If the hand uses a grasping dimension and you do not wish any of the dimensions to be weighted more than the others,
+then count the number of joints involved (JOINTS_INVOLVED) and the DimVal for all joints will = sqrt(1/JOINTS_INVOLVED) -->
