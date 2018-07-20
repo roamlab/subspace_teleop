@@ -49,6 +49,9 @@ of the load_file functions. It can be used to preset delta, but we
 have a function to calculate delta based on min/max joint angles, 
 so the range tag is not necessary.
 
+If your hand is underactuated, assign the degrees of freedom to the 
+spread, size and curl dimensions, instead of assigning joints.
+
 See below for illustrative examples.  The meshes/images of these hands
 can be found in Graspit!.
 
