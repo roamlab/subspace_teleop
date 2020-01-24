@@ -47,7 +47,7 @@ roslaunch teleoperation_subspace teleoperation_subspace.launch
 
 
 You can specify some parameters in the launch file:
-* master The name of the master hand (also the title of the master hand's xml file) 
-* slave The name of the slave hand (also the title of the slave hand's xml file) 
-* model_dir The path to the folder where the models are kept
+* master: The name of the master hand (also the title of the master hand's xml file) 
+* slave: The name of the slave hand (also the title of the slave hand's xml file) 
+* model_dir: The path to the folder where the models are kept
 
