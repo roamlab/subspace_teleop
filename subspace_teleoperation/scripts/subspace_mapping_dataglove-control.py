@@ -37,6 +37,8 @@ import rospy
 import os
 from subspace_teleoperation.subspace_mapping import DatagloveTeleoperation
 from subspace_teleoperation.hardware_safety import HardwareSafety 
+from subspace_teleoperation.data_management import DataManager 
+
 
 
 if __name__ == '__main__':
@@ -49,5 +51,6 @@ if __name__ == '__main__':
     print "The input parameters show we will be teleoperating a slave %s with a master %s. "%(slave_hand, master_hand)
 
     safety_class = HardwareSafety()
-    DatagloveTeleoperation(master_hand, slave_hand, model_dir, safety_class)
+    data_management_class = DataManager()
+    DatagloveTeleoperation(master_hand, slave_hand, model_dir, safety_class, data_management_class)
     rospy.spin()
