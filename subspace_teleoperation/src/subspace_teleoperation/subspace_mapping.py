@@ -29,7 +29,6 @@ import numpy as np
 import itertools
 from sensor_msgs.msg import JointState
 from subspace_teleoperation.load_from_file import load_hand_model_from_xml_file
-from subspace_teleoperation.hardware_safety import HardwareSafety
 
 def project_joint_angles_to_teleop_subspace(joint_angles, projection_matrix, origin):
     '''Given the joint angle of a hand, the projection matrix A and the origin O, 
@@ -136,7 +135,7 @@ class SubspaceMappingTeleoperation(object):
     checks and publish the resulting slave joint angles. This class is completely 
     agnostic to how the master joint angles come in and how the slave joint angles
     are published (though we provide a default for publishing the slave joint angles).'''
-    def __init__(self, master_hand, slave_hand, model_dir, hardware_safety_class):
+    def __init__(self, master_hand, slave_hand, model_dir, hardware_safety_class, data_management_class):
         #Read arguments in as member variables
         self.master_hand = master_hand
         self.slave_hand = slave_hand
@@ -162,6 +161,13 @@ class SubspaceMappingTeleoperation(object):
         #argument. This class will provide limited checks to ensure safety of the slave robot
         self.safety_functions = hardware_safety_class
 
+        #Set member variable for the data managment class. 
+        self.data_manager = data_management_class
+
+        #Initialize time variables
+        self.start_time = rospy.Time.now()
+        self.time_elapsed = (rospy.Time.now() - self.start_time).to_sec()
+
         #initialize timer which will execute teleoperation
         teleop_rate = 0.05
         self.timer = rospy.Timer(rospy.Duration(teleop_rate), self.teleoperate)
@@ -173,6 +179,8 @@ class SubspaceMappingTeleoperation(object):
         this point in T to the joint space of the slave hand and perform some limited
         hardware safety checks.'''
         
+        self.time_elapsed = (rospy.Time.now() - self.start_time).to_sec()
+
         T_slave = self.mapping.map_from_master_to_slave(self.T_master)
         self.slave_msg.position = project_from_teleop_subspace_to_joint_angles(T_slave, self.A_slave, self.o_slave)
         # print self.slave_msg.position
@@ -184,6 +192,9 @@ class SubspaceMappingTeleoperation(object):
 
         #Publish slave joint angles
         self.publish_actions()
+
+        #Call data manager class to record data
+        self.data_manager.record_data(self)
 
     def create_subscriber(self):
         '''Creates a ros subscriber which will fetch the joint angles of the master
@@ -265,8 +276,9 @@ class DatagloveTeleoperation(SubspaceMappingTeleoperation):
     msg on the ROS topic /cyberglove/raw/joint_states. We allow the slave joint
     angles to be published using the default from the SubspaceMappingTeleoperation
     class, as a JointState msg on the topic slave_hand/command.'''
-    def __init__(self, master_hand, slave_hand, model_dir, hardware_safety_class):
-        super(DatagloveTeleoperation, self).__init__(master_hand, slave_hand, model_dir, hardware_safety_class)
+    def __init__(self, master_hand, slave_hand, model_dir, hardware_safety_class, data_management_class):
+        super(DatagloveTeleoperation, self).__init__(master_hand, slave_hand, model_dir, 
+                                                        hardware_safety_class, data_management_class)
 
     def master_joint_angles_callback(self, joint_angles_msg):
         '''Get master joint angles from ROS topic and convert to point in T'''
