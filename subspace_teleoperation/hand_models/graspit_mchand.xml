@@ -4,11 +4,11 @@
 
 <hand Name="graspit_mchand" Dimensions="12">
 	<Spread_Dimension>
-		<DimVals d4="-0.707106" d8="0.707106"></DimVals>
+		<DimVals d4="0.707106" d8="-0.707106"></DimVals>
 	</Spread_Dimension>
 
 	<Size_Dimension>
-		<DimVals d0="0.44721" d1="0.44721" d5="0.44721" d6="0.44721" d9="0.44721"></DimVals>
+		<DimVals d0="-0.44721" d1="-0.44721" d5="-0.44721" d6="-0.44721" d9="-0.44721"></DimVals>
 	</Size_Dimension>
 
 	<Curl_Dimension>

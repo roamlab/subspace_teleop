@@ -8,7 +8,7 @@
 	</Spread_Dimension>
 
 	<Size_Dimension>
-		<DimVals d0="0.707106" d2="0.707106"></DimVals>
+		<DimVals d0="-0.707106" d2="-0.707106"></DimVals>
 	</Size_Dimension>
 
 	<Curl_Dimension>

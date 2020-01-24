@@ -67,7 +67,7 @@ joint.
 
 So we create the un-normalized versions of psi:
 	psi_alpha = [1, 0, 0, 0, 0, 0, 0]  --> spread
-	psi_sigma = [0, 1, 0 1, 0, 1, 0]  --> size
+	psi_sigma = [0, 1, 0, 1, 0, 1, 0]  --> size
 	psi_epsilon = [0, 0, 1, 0, 1, 0, 1]  --> curl
 
 We normalize the psis:
@@ -77,23 +77,32 @@ We normalize the psis:
 
 We convert these into the XML tags:
 	<Spread_Dimension>
-		<DimVals d0="-1" ></DimVals>
+		<DimVals d0="1" ></DimVals>
 	</Spread_Dimension>
 
 	<Size_Dimension>
-		<DimVals d1="0.57735" d3="0.57735" d5="0.57735" ></DimVals>
+		<DimVals d1="-0.57735" d3="-0.57735" d5="-0.57735" ></DimVals>
 	</Size_Dimension>
 
 	<Curl_Dimension>
 		<DimVals d2="0.57735" d4="0.57735" d6="0.57735" ></DimVals>
 	</Curl_Dimension>
 
-You will note that the spread dimension is negated. Occasionally 
-because of the direction in which the fingers open or are spread, 
-values in the psis will need to be negated. This is usually only 
-necessary for the spread dimension. If you find your robot fingers 
-spreading in the wrong direction (abducting when they should be 
-adducting), try negating one or more values in the spread dimension.
+You will note that some of the dimensions are negated. If, while the
+hand goes from open to close, a joint angle decreases (i.e. goes from 
+0 degrees at closed to -90 at open), then you should negate that value
+in the DimVals of the size dimension. Similarly, if while, going from 
+being straight to being curled, the joint angles of the curl joints 
+decrease, we should negate those joints of the curl dimension. Finally, 
+the spread dimension, if while spreading the fingers a joint angle 
+decreases, then that degree of freedom should be negated. 
+
+For trouble shooting, if you find your robot doing the opposite of 
+what you think it should be doing, i.e if your fingers abducting when
+you think they should be adducting, try negating one or more values 
+in the spread dimension.
+
+
 
 
 
@@ -122,7 +131,7 @@ We convert these into the XML tags:
 	</Spread_Dimension>
 
 	<Size_Dimension>
-		<DimVals d0="0.707106" d2="0.707106"></DimVals>
+		<DimVals d0="-0.707106" d2="-0.707106"></DimVals>
 	</Size_Dimension>
 
 	<Curl_Dimension>
@@ -171,22 +180,22 @@ schunk.xml file in the hand_models folder:
 
 XML:
 <Spread_Dimension>
-	<DimVals d0="-1"/>
+	<DimVals d0="1"/>
 </Spread_Dimension>
 <Size_Dimension>
-	<DimVals d1="0.57735" d3="0.57735" d5="0.57735"/>
+	<DimVals d1="-0.57735" d3="-0.57735" d5="-0.57735"/>
 </Size_Dimension>
 <Curl_Dimension>
 	<DimVals d2="0.57735" d4="0.57735" d6="0.57735"/>
 </Curl_Dimension>
 
 Loaded into python as:
-A = [[-1, 0,     0    ],
-     [0,  0.577, 0    ], 
+A = [[1, 0,     0    ],
+     [0,  -0.577, 0    ], 
      [0,  0,     0.577],
-     [0,  0.577, 0    ],
+     [0,  -0.577, 0    ],
      [0,  0,     0.577],
-     [0,  0.577, 0    ],
+     [0,  -0.577, 0    ],
      [0,  0,     0.577]]
 
 The dimension tag determines which column the non-zero numbers are placed

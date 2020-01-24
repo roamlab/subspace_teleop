@@ -1,6 +1,6 @@
 <launch>
   <!-- Arguments to be changed by the user-->
-  <arg name="master" default='human'/>
+  <arg name="master" default='human_15DOF'/>
   <arg name="slave" default='schunk'/>
   <arg name="model_dir" default='$(find subspace_teleoperation)/hand_models'/>
 

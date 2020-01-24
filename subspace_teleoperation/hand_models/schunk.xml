@@ -4,17 +4,14 @@
 
 <hand Name="schunk" Dimensions="7">
 	<Spread_Dimension>
-		<Range>-1</Range>
-		<DimVals d0="-1" ></DimVals>
+		<DimVals d0="1" ></DimVals>
 	</Spread_Dimension>
 
 	<Size_Dimension>
-		<Range>3.05</Range>
-		<DimVals d1="0.57735" d3="0.57735" d5="0.57735" ></DimVals>
+		<DimVals d1="-0.57735" d3="-0.57735" d5="-0.57735" ></DimVals>
 	</Size_Dimension>
 
 	<Curl_Dimension>
-		<Range>2.8</Range>
 		<DimVals d2="0.57735" d4="0.57735" d6="0.57735" ></DimVals>
 	</Curl_Dimension>
 

@@ -2,13 +2,13 @@
 <!-- Model of the Human Hand (Decoupled eigengrasps with even weights) -->
 <!-- Order of joints: (thumb rotate, thumb mpj, thumb ij, thumb ab, index mpj, index pij, index dij, middle mpj, middle pij, middle dij, middle ab, ring mpj, ring pij, ring dij, ring ab, pinkie mpj, pinkie pij, piinkie dij, pinkie ab, palm arch, wrist pitch, wrist yaw) -->
 
-<hand Name="human" Dimensions="22">
+<hand Name="human_22DOF" Dimensions="22">
 	<Spread_Dimension>
-		<DimVals d0="0.44721" d3="0.44721" d10="0.44721" d14="0.44721" d18="0.44721"></DimVals>
+		<DimVals d0="-0.44721" d3="-0.44721" d10="-0.44721" d14="-0.44721" d18="-0.44721"></DimVals>
 	</Spread_Dimension>
 
 	<Size_Dimension>
-		<DimVals d1="0.4082" d4="0.4082" d7="0.4082" d11="0.4082" d15="0.4082" d19="0.4082"></DimVals>
+		<DimVals d1="-0.4082" d4="-0.4082" d7="-0.4082" d11="-0.4082" d15="-0.4082" d19="-0.4082"></DimVals>
 	</Size_Dimension>
 
 	<Curl_Dimension>

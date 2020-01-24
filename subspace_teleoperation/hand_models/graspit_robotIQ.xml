@@ -4,11 +4,11 @@
 
 <hand Name="graspit_robotIQ" Dimensions="11">
 	<Spread_Dimension>
-		<DimVals d3="-0.707106" d7="0.707106" ></DimVals>
+		<DimVals d3="0.707106" d7="-0.707106" ></DimVals>
 	</Spread_Dimension>
 
 	<Size_Dimension>
-		<DimVals d0="0.57735" d4="0.57735" d8="0.57735" ></DimVals>
+		<DimVals d0="-0.57735" d4="-0.57735" d8="-0.57735" ></DimVals>
 	</Size_Dimension>
 
 	<Curl_Dimension>

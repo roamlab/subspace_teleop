@@ -4,11 +4,11 @@
 
 <hand Name="graspit_kanguera" Dimensions="15">
 	<Spread_Dimension>
-		<DimVals d3=".5" d6=".5" d9=".5" d12=".5" ></DimVals>
+		<DimVals d3="-.5" d6="-.5" d9="-.5" d12="-.5" ></DimVals>
 	</Spread_Dimension>
 
 	<Size_Dimension>
-		<DimVals d0="0.4082" d1="0.4082" d4="0.4082" d7="0.4082" d10="0.4082" d13="0.4082" ></DimVals>
+		<DimVals d0="-0.4082" d1="-0.4082" d4="-0.4082" d7="-0.4082" d10="-0.4082" d13="-0.4082" ></DimVals>
 	</Size_Dimension>
 
 	<Curl_Dimension>
