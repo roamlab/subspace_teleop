@@ -22,7 +22,8 @@ Contains a hardwares safety class which performs very limited safety checks to
 help protect hardware. We HIGHLY recommend adding more safety functions based
 on your specific hardware and teleoepration needs. 
 '''
-from copy import deepcopy
+
+from subspace_teleoperation.load_from_file import load_hand_model_from_xml_file
 
 class HardwareSafety(object):
     '''Hardware safety class, which performs safety checks for the slave hand. We 
@@ -32,20 +33,23 @@ class HardwareSafety(object):
     Within that function, you can call whatever safety checks you have created 
     for the slave robot. We have only provided a safety check which ensures that
     the slave joint angles are within a given range.'''
-    def __init__(self):
-        pass
+    def __init__(self, slave_hand, model_dir):
+        self.slave_hand = slave_hand
+        self.model_dir = model_dir
+        self.num_dof, _, _, self.q_max, self.q_min, _ =load_hand_model_from_xml_file(slave_hand, model_dir)
+        assert self.num_dof == len(self.q_min) == len(self.q_max)
 
-    def enforce_slave_joint_limits(self, joint_angles, q_minima, q_maxima):
+    def enforce_slave_joint_limits(self, joint_angles):
         '''A function which, given the minimum and maximum each joint on the robot
         hand, checks that the joint angles for the slave are within that given range'''
-        for i in range(0, len(joint_angles)):
-            joint_angles[i] = max(q_minima[i], min(q_maxima[i], joint_angles[i]))
+        for i in range(0, self.num_dof):
+            joint_angles[i] = max(self.q_min[i], min(self.q_max[i], joint_angles[i]))
         return joint_angles
 
-    def ensure_robot_safety(self, joint_positions, q_min, q_max):
+    def ensure_robot_safety(self, joint_positions):
         '''This is the function which is called by the subspace teleoperation 
         function. Here you can call functions which will make sure that your
         hardware is safe.'''
-        assert len(joint_positions) == len(q_min) == len(q_max)
-        joint_positions = self.enforce_slave_joint_limits(deepcopy(joint_positions), q_min, q_max)
+        assert len(joint_positions) == self.num_dof
+        joint_positions = self.enforce_slave_joint_limits(joint_positions)
         return joint_positions
