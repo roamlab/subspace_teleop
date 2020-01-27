@@ -35,16 +35,17 @@ class HardwareSafety(object):
     def __init__(self):
         pass
 
-    def enforce_slave_joint_limits(self, current_joint_angles, num_dof, q_minima, q_maxima):
+    def enforce_slave_joint_limits(self, joint_angles, q_minima, q_maxima):
         '''A function which, given the minimum and maximum each joint on the robot
         hand, checks that the joint angles for the slave are within that given range'''
-        for i in range(0, num_dof):
-            current_joint_angles[i] = max(q_minima[i], min(q_maxima[i], current_joint_angles[i]))
-        return current_joint_angles
+        for i in range(0, len(joint_angles)):
+            joint_angles[i] = max(q_minima[i], min(q_maxima[i], joint_angles[i]))
+        return joint_angles
 
-    def ensure_robot_safety(self, joint_positions, num_dof, q_min, q_max):
+    def ensure_robot_safety(self, joint_positions, q_min, q_max):
         '''This is the function which is called by the subspace teleoperation 
         function. Here you can call functions which will make sure that your
         hardware is safe.'''
-        joint_positions = self.enforce_slave_joint_limits(deepcopy(joint_positions), num_dof, q_min, q_max)
+        assert len(joint_positions) == len(q_minima) == len(q_maxima)
+        joint_positions = self.enforce_slave_joint_limits(deepcopy(joint_positions), q_min, q_max)
         return joint_positions

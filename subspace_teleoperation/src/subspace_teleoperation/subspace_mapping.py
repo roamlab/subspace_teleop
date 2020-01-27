@@ -188,7 +188,7 @@ class SubspaceMappingTeleoperation(object):
         #Perform safety checks, giving joint angle maximum and minimum from xml 
         #to the safety functions, which will check if the slave joint angles are
         #within the allowable range
-        self.slave_msg.position = self.safety_functions.ensure_robot_safety(self.slave_msg.position, self.num_dof_slave, self.q_min_slave, self.q_max_slave)
+        self.slave_msg.position = self.safety_functions.ensure_robot_safety(self.slave_msg.position, self.q_min_slave, self.q_max_slave)
 
         #Publish slave joint angles
         self.publish_actions()

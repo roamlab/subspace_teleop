@@ -44,7 +44,7 @@ from subspace_teleoperation.data_management import DataManager
 if __name__ == '__main__':
     rospy.init_node('subspace_mapping_teleop', anonymous=True)
 
-    master_hand = rospy.get_param('~master', "human")
+    master_hand = rospy.get_param('~master', "human_15DOF")
     slave_hand = rospy.get_param('~slave', "schunk")
     model_dir = rospy.get_param('~model_dir', os.getcwd() + '/hand_models')
 
