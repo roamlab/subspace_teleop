@@ -33,10 +33,10 @@ class HardwareSafety(object):
     Within that function, you can call whatever safety checks you have created 
     for the slave robot. We have only provided a safety check which ensures that
     the slave joint angles are within a given range.'''
-    def __init__(self, slave_hand, model_dir):
-        self.slave_hand = slave_hand
+    def __init__(self, hand, model_dir):
+        self.hand = hand
         self.model_dir = model_dir
-        self.num_dof, _, _, self.q_max, self.q_min, _ =load_hand_model_from_xml_file(slave_hand, model_dir)
+        self.num_dof, _, _, self.q_max, self.q_min, _ =load_hand_model_from_xml_file(hand, model_dir)
         assert self.num_dof == len(self.q_min) == len(self.q_max)
 
     def enforce_slave_joint_limits(self, joint_angles):
