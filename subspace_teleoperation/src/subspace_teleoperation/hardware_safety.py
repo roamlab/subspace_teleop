@@ -46,6 +46,6 @@ class HardwareSafety(object):
         '''This is the function which is called by the subspace teleoperation 
         function. Here you can call functions which will make sure that your
         hardware is safe.'''
-        assert len(joint_positions) == len(q_minima) == len(q_maxima)
+        assert len(joint_positions) == len(q_min) == len(q_max)
         joint_positions = self.enforce_slave_joint_limits(deepcopy(joint_positions), q_min, q_max)
         return joint_positions
