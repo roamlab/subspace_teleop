@@ -5,6 +5,6 @@
   <arg name="model_dir" default='$(find subspace_teleoperation)/hand_models'/>
 
   <!-- Teleoperate using subspace -->
-  <node pkg="subspace_teleoperation" type="subspace_mapping_dataglove-control.py" name="teleoperator" output="screen" args="_master:=$(arg master) _slave:=$(arg slave) _model_dir:=$(arg model_dir)" />
+  <node pkg="subspace_teleoperation" type="subspace_mapping_dataglove-control.py" name="teleoperator" output="screen" args="_master:=$(arg master) _slave:=$(arg slave) _master_model_dir:=$(arg model_dir)  _slave_model_dir:=$(arg model_dir)"/>
 
 </launch>

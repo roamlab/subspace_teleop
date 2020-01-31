@@ -39,18 +39,17 @@ from subspace_teleoperation.subspace_mapping import SubspaceMappingTeleoperation
 from subspace_teleoperation.hardware_safety import HardwareSafety 
 from subspace_teleoperation.data_management import DataManager 
 
-
-
 if __name__ == '__main__':
     rospy.init_node('subspace_mapping_teleop', anonymous=True)
 
     master_hand = rospy.get_param('~master', "human_15DOF")
     slave_hand = rospy.get_param('~slave', "schunk")
-    model_dir = rospy.get_param('~model_dir', os.getcwd() + '/hand_models')
+    master_model_dir = rospy.get_param('~master_model_dir', os.getcwd() + '/hand_models')
+    slave_model_dir = rospy.get_param('~slave_model_dir', master_model_dir)
 
     print "The input parameters show we will be teleoperating a slave %s with a master %s. "%(slave_hand, master_hand)
 
-    safety_class = HardwareSafety(slave_hand, model_dir)
+    safety_class = HardwareSafety(slave_hand, slave_model_dir)
     data_management_class = DataManager()
-    SubspaceMappingTeleoperation(master_hand, slave_hand, model_dir, safety_class, data_management_class)
+    SubspaceMappingTeleoperation(master_hand, slave_hand, master_model_dir, slave_model_dir, safety_class, data_management_class)
     rospy.spin()

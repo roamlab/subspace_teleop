@@ -47,13 +47,14 @@ def project_from_teleop_subspace_to_joint_angles(pt_in_subspace, projection_matr
 class SubspaceMapping(object):
     '''Calculates delta values for robot hands and maps between master and slave teleoperation
     subspace points'''
-    def __init__(self, model_dir):
-        self.model_dir = model_dir
+    def __init__(self, master_model_dir, slave_model_dir):
+        self.master_model_dir = master_model_dir
+        self.slave_model_dir = slave_model_dir
 
     def get_subspace_scaling_factor(self, slave_hand, master_hand, human_T_axes_ranges):
         '''Calculated delta values for the slave and master hand. Assumes that the master hand is human'''
         #Get unscaled subspace ranges
-        T_axes_range_slave = self.calculate_T_axis_ranges(slave_hand)
+        T_axes_range_slave = self.calculate_T_axis_ranges(slave_hand, self.slave_model_dir)
         T_axes_range_master = human_T_axes_ranges
 
         #Get delta
@@ -67,10 +68,10 @@ class SubspaceMapping(object):
         self.mapping_slope = np.multiply(delta_star_slave, delta_master)
         return delta_slave, self.mapping_slope
 
-    def calculate_T_axis_ranges(self, hand):
+    def calculate_T_axis_ranges(self, hand, model_dir):
         '''For each of the basis vectors in the teleoperation subspace, calculate
         the range of the possible values along the basis vectors for a given hand'''
-        num_dof, origin, A, q_max, q_min, q_names = load_hand_model_from_xml_file(hand, self.model_dir)
+        num_dof, origin, A, q_max, q_min, q_names = load_hand_model_from_xml_file(hand, model_dir)
         return self.get_robot_hand_ranges(origin, A, q_max, q_min)
 
     def get_robot_hand_ranges(self, origin, A, max_joint_angles, min_joint_angles):
@@ -136,11 +137,12 @@ class Teleoperation(object):
     is completely agnostic to how the master joint angles come in and how the slave 
     joint angles are published (though we provide a default for publishing the slave 
     joint angles).'''
-    def __init__(self, master_hand, slave_hand, model_dir, hardware_safety_class, data_management_class):
+    def __init__(self, master_hand, slave_hand, master_model_dir, slave_model_dir, hardware_safety_class, data_management_class):
         #Read arguments in as member variables
         self.master_hand = master_hand
         self.slave_hand = slave_hand
-        self.model_dir = model_dir
+        self.master_model_dir = master_model_dir
+        self.slave_model_dir = slave_model_dir
 
         #Load from XML files the pertinent information for the master and slave hands
         self.load_hand_information_from_file()
@@ -236,10 +238,10 @@ class Teleoperation(object):
         Loads in hand information - reads in number of DOFs, origin (o), projection matrix (A) and min/max joint values
         '''
         (self.num_dof_slave, self.o_slave, self.A_slave, self.q_max_slave, self.q_min_slave, 
-            self.q_names_slave) = load_hand_model_from_xml_file(self.slave_hand, self.model_dir)
+            self.q_names_slave) = load_hand_model_from_xml_file(self.slave_hand, self.slave_model_dir)
         print "%s model loaded."%self.slave_hand
         (self.num_dof_master, self.o_master, self.A_master, self.q_max_master, self.q_min_master, 
-            self.q_names_master) = load_hand_model_from_xml_file(self.master_hand, self.model_dir)
+            self.q_names_master) = load_hand_model_from_xml_file(self.master_hand, self.master_model_dir)
         print "%s model loaded."%self.master_hand
 
 
@@ -265,7 +267,7 @@ class SubspaceMappingTeleoperation(DatagloveTeleoperation):
     the mapping and asking the user to perform calibration poses.'''
     def load_mapping_variables(self):
         #Get subspace mapping - this assumes that the master hand is human
-        self.mapping = SubspaceMapping(self.model_dir)
+        self.mapping = SubspaceMapping(self.master_model_dir, self.slave_model_dir)
         human_axes_ranges, self.o_master = self.get_human_hand_ranges()
         self.mapping.get_subspace_scaling_factor(self.slave_hand, self.master_hand, human_axes_ranges)
 
