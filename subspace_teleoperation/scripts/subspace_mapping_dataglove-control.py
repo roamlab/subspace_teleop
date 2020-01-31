@@ -44,7 +44,10 @@ if __name__ == '__main__':
 
     master_hand = rospy.get_param('~master', "human_15DOF")
     slave_hand = rospy.get_param('~slave', "schunk")
-    master_model_dir = rospy.get_param('~master_model_dir', os.getcwd() + '/hand_models')
+    #Can either set the model_dir param, which will become the value for both the master and slave dirs
+    model_dir = rospy.get_param('~model_dir', os.getcwd() + '/hand_models')    
+    #Or you can set the master and slave dirs individually from the command line
+    master_model_dir = rospy.get_param('~master_model_dir', model_dir)
     slave_model_dir = rospy.get_param('~slave_model_dir', master_model_dir)
 
     print "The input parameters show we will be teleoperating a slave %s with a master %s. "%(slave_hand, master_hand)
