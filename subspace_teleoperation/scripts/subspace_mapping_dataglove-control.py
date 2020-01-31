@@ -35,7 +35,7 @@ T = teleoperation subspace
 
 import rospy
 import os
-from subspace_teleoperation.subspace_mapping import DatagloveTeleoperation
+from subspace_teleoperation.subspace_mapping import SubspaceMappingTeleoperation
 from subspace_teleoperation.hardware_safety import HardwareSafety 
 from subspace_teleoperation.data_management import DataManager 
 
@@ -52,5 +52,5 @@ if __name__ == '__main__':
 
     safety_class = HardwareSafety(slave_hand, model_dir)
     data_management_class = DataManager()
-    DatagloveTeleoperation(master_hand, slave_hand, model_dir, safety_class, data_management_class)
+    SubspaceMappingTeleoperation(master_hand, slave_hand, model_dir, safety_class, data_management_class)
     rospy.spin()
