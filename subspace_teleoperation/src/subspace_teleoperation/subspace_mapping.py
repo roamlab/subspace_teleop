@@ -130,20 +130,24 @@ class SubspaceMapping(object):
         return T_slave
 
 
-class Teleoperation(object):
+class HandTeleoperation(object):
     '''A general framework for teleoperation. This base class is not specific to 
     subspace mapping. It will subscribe to the master joint angles, perform some 
     hardware safety checks and publish the resulting slave joint angles. This class 
     is completely agnostic to how the master joint angles come in and how the slave 
     joint angles are published (though we provide a default for publishing the slave 
     joint angles).'''
-    def __init__(self, master_hand, slave_hand, master_model_dir, slave_model_dir, hardware_safety_class, data_management_class):
+    def __init__(self, master_hand, slave_hand, master_model_dir, slave_model_dir, hardware_safety_class,
+                 data_management_class, teleop_rate=.05):
         #Read arguments in as member variables
         self.master_hand = master_hand
         self.slave_hand = slave_hand
         self.master_model_dir = master_model_dir
         self.slave_model_dir = slave_model_dir
-
+        self.T_master = None
+         #Initialize time variables
+        self.start_time = rospy.Time.now()
+        self.time_elapsed = (rospy.Time.now() - self.start_time).to_sec()
         #Load from XML files the pertinent information for the master and slave hands
         self.load_hand_information_from_file()
 
@@ -165,15 +169,16 @@ class Teleoperation(object):
         #Set member variable for the data managment class. 
         self.data_manager = data_management_class
 
-        #Initialize time variables
-        self.start_time = rospy.Time.now()
-        self.time_elapsed = (rospy.Time.now() - self.start_time).to_sec()
+       
 
         #initialize timer which will execute teleoperation
-        teleop_rate = 0.05
-        self.timer = rospy.Timer(rospy.Duration(teleop_rate), self.teleoperate)
+        if teleop_rate > 0.0:
+            self.timer = rospy.Timer(rospy.Duration(teleop_rate), self.teleoperate_callback)
 
-    def teleoperate(self, event):
+    def teleoperate_callback(self, event):
+        self.teleoperate()
+
+    def teleoperate(self):
         '''This is where the actual teleoperation happens. the master hand subscriber
         has calculated the master's position in the teleoperation subspace, so we use 
         the subspace mapping class to map from the master to slave. We then project
@@ -245,11 +250,11 @@ class Teleoperation(object):
         print "%s model loaded."%self.master_hand
 
 
-class DatagloveTeleoperation(Teleoperation):
+class DatagloveHandTeleoperation(HandTeleoperation):
     '''This is a class which implements the general teleoperation class controlled
     by a dataglove. Specifically, the dataglove should be publishing a JointState
     msg on the ROS topic /cyberglove/raw/joint_states. We allow the slave joint
-    angles to be published using the default from the Teleoperation class, as a 
+    angles to be published using the default from the HandTeleoperation class, as a
     JointState msg on the topic slave_hand/command.'''
     def master_joint_angles_callback(self, joint_angles_msg):
         '''Get master joint angles from ROS topic'''
@@ -258,10 +263,11 @@ class DatagloveTeleoperation(Teleoperation):
     def create_subscriber(self):
         '''Creates a ros subscriber which will fetch the joint angles of the master
         hand from the cyberglove.'''
-        rospy.Subscriber('/cyberglove/raw/joint_states', JointState, self.master_joint_angles_callback)
+        self.master_hand_topic = '/cyberglove/raw/joint_states'
+        rospy.Subscriber(self.master_hand_topic, JointState, self.master_joint_angles_callback)
 
 
-class SubspaceMappingTeleoperation(DatagloveTeleoperation):
+class SubspaceMappingHandTeleoperation(DatagloveHandTeleoperation):
     '''Implements the subspace mapping teleoperation using the subspace mapping class.
     We provide additional functions for loading in the mapping variables, performing
     the mapping and asking the user to perform calibration poses.'''
@@ -279,7 +285,10 @@ class SubspaceMappingTeleoperation(DatagloveTeleoperation):
         '''Asks the user for a series of calibration poses to find scaling and origin of the human hand'''
 
         print "\n For more information on calibration poses, see calibration_poses.pdf. \n"
-
+        while (self.T_master is None) and (rospy.Time.now() - self.start_time).to_sec():
+            pass
+        if self.T_master is None:
+            raise ValueError, "T_master has not been set yet. The master hand is not publishing to {}".format(self.master_hand_topic)
         raw_input("With the dataglove on, perform Calibration Pose 1. Once you have done this, press Enter.")
         spread_min = self.T_master[0]
         size_max = self.T_master[1]
@@ -302,6 +311,6 @@ class SubspaceMappingTeleoperation(DatagloveTeleoperation):
 
     def master_joint_angles_callback(self, joint_angles_msg):
         '''Get master joint angles from ROS topic and convert to point in T'''
-        super(SubspaceMappingTeleoperation, self).master_joint_angles_callback(joint_angles_msg)
+        super(SubspaceMappingHandTeleoperation, self).master_joint_angles_callback(joint_angles_msg)
         self.T_master = project_joint_angles_to_teleop_subspace(self.master_joint_angles, self.A_master, self.o_master)
 

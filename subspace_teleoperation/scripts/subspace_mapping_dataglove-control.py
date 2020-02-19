@@ -50,9 +50,11 @@ if __name__ == '__main__':
     master_model_dir = rospy.get_param('~master_model_dir', model_dir)
     slave_model_dir = rospy.get_param('~slave_model_dir', master_model_dir)
 
+    teleop_rate = .05
     print "The input parameters show we will be teleoperating a slave %s with a master %s. "%(slave_hand, master_hand)
 
     safety_class = HardwareSafety(slave_hand, slave_model_dir)
     data_management_class = DataManager()
-    SubspaceMappingTeleoperation(master_hand, slave_hand, master_model_dir, slave_model_dir, safety_class, data_management_class)
+    SubspaceMappingTeleoperation(master_hand, slave_hand, master_model_dir, slave_model_dir, safety_class,
+                                 data_management_class, teleop_rate)
     rospy.spin()
